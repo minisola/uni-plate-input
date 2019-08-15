@@ -47,7 +47,8 @@
 				</view>
 			</view>
 			<view class="so-plate-foot">
-				<view class="so-plate-keyboard">
+				<view class="so-plate-keyboard"  :style="{height:keyboardHeight}">
+					<view id="keyboard">
 					<view v-if="inputType == 1" hover-class="hover" class="so-plate-key" v-for="el of provinceText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
 					<block v-if="inputType == 1">
 						<text class="so-plate-key fill-block"></text>
@@ -55,9 +56,10 @@
 					</block>
 					<view v-if="inputType >= 3" hover-class="hover" class="so-plate-key" v-for="el of numberText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
 					<view v-if="inputType >= 2" hover-class="hover" class="so-plate-key" v-for="el of wordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
-					<text v-if="inputType == 3" v-for="el of 6" :key="'fill' + el" class="so-plate-key fill-block"></text>
+					<text v-if="inputType == 3" v-for="el of fillBlock" :key="el.num" class="so-plate-key fill-block"></text>
 					<view v-if="inputType == 4" hover-class="hover" class="so-plate-key" v-for="el of lastWordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
 					<text v-if="inputType == 4" class="so-plate-key fill-block"></text>
+					</view>
 				</view>
 				<view class="so-plate-btn-group">
 					<view>
@@ -82,6 +84,9 @@ export default {
 			type: 1, //车牌类型
 			currentInputIndex: 0, //当前编辑的输入框
 			currentInputValue: ['', '', '', '', '', '', ''],
+			fillBlock:[{num:11},{num:12},{num:13},{num:14},{num:15},{num:16}],  //避免:key报错
+			keyboardHeightInit:false,
+			keyboardHeight:'auto',
 			provinceText: [
 				'粤',
 				'京',
@@ -158,6 +163,14 @@ export default {
 			}
 		}
 	},
+	watch:{
+		currentInputIndex:function(n,o){
+			if(!this.keyboardHeightInit) return
+				this.$nextTick(()=>{
+					this.changeKeyboardHeight()
+				})
+		}
+	},
 	methods: {
 		//车牌类型切换
 		typeChange(e) {
@@ -202,6 +215,15 @@ export default {
 			})
 			
 			this.$emit('export',plate)
+		},
+		changeKeyboardHeight(){
+			const that = this
+			const query = uni.createSelectorQuery().in(this);
+			query.select('#keyboard').boundingClientRect();
+			query.exec(function(res) {
+				that.keyboardHeight = res[0].height + uni.upx2px(30) + 'px'
+				that.keyboardHeightInit = true
+			});
 		}
 	},
 	mounted() {
@@ -216,6 +238,12 @@ export default {
 			this.currentInputValue = plateKey
 			this.currentInputIndex = plateKey.length-1
 		}
+
+		setTimeout(() => {  //在动画结束之后才开始获取
+			this.$nextTick(()=>{
+				this.changeKeyboardHeight()
+			})
+		}, 500);
 	}
 };
 </script>

@@ -70,11 +70,14 @@
 		background: #eee;
 		margin-left: -25upx;
 		margin-right: -25upx;
-		box-sizing: border-box;
 		padding: 20upx 25upx 10upx 25upx;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+		box-sizing: border-box;
+		transition: all .3s;
+		&>view{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
 	}
 	&-key {
 		display: block;
