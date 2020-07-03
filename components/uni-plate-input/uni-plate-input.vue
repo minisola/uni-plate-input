@@ -221,8 +221,10 @@ export default {
 			const query = uni.createSelectorQuery().in(this);
 			query.select('#keyboard').boundingClientRect();
 			query.exec(function(res) {
-				that.keyboardHeight = res[0].height + uni.upx2px(30) + 'px'
-				that.keyboardHeightInit = true
+				if(res&&res[0]){
+					that.keyboardHeight = res[0].height + uni.upx2px(30) + 'px'
+					that.keyboardHeightInit = true
+				}
 			});
 		}
 	},
