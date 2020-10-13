@@ -12,8 +12,8 @@
 <template>
 	<view class="cu-form-group">
 		<view class="title">车牌号</view>
-		<input placeholder="请点此输入" disabled="true" @tap="plateShow=true" v-model.trim="plateNo"></input>
-		<plate-input v-if="plateShow" :plate="plateNo" @export="setPlate" @close="plateShow=false"></plate-input>
+		<input placeholder="请点此输入" disabled="true" @tap="plateShow=true" v-model.trim="plateNo" />
+		<plate-input v-if="plateShow" :plate="plateNo" @export="setPlate" @close="plateShow=false" />
 	</view>
 </template>
 
