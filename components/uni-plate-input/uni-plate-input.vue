@@ -49,16 +49,26 @@
 			<view class="so-plate-foot">
 				<view class="so-plate-keyboard"  :style="{height:keyboardHeight}">
 					<view id="keyboard">
-					<view v-if="inputType == 1" hover-class="hover" class="so-plate-key" v-for="el of provinceText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
-					<block v-if="inputType == 1">
-						<text class="so-plate-key fill-block"></text>
-						<text class="so-plate-key fill-block"></text>
-					</block>
-					<view v-if="inputType >= 3" hover-class="hover" class="so-plate-key" v-for="el of numberText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
-					<view v-if="inputType >= 2" hover-class="hover" class="so-plate-key" v-for="el of wordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
-					<text v-if="inputType == 3" v-for="el of fillBlock" :key="el.num" class="so-plate-key fill-block"></text>
-					<view v-if="inputType == 4" hover-class="hover" class="so-plate-key" v-for="el of lastWordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
-					<text v-if="inputType == 4" class="so-plate-key fill-block"></text>
+						<block v-if="inputType == 1">
+							<view hover-class="hover" class="so-plate-key" v-for="el of provinceText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
+						</block>
+						<block v-if="inputType == 1">
+							<text class="so-plate-key fill-block"></text>
+							<text class="so-plate-key fill-block"></text>
+						</block>
+						<block v-if="inputType >= 3">
+							<view hover-class="hover" class="so-plate-key" v-for="el of numberText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
+						</block>
+						<block v-if="inputType >= 2">
+							<view hover-class="hover" class="so-plate-key" v-for="el of wordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
+						</block>
+						<block v-if="inputType == 3">
+							<text v-for="el of fillBlock" :key="el.num" class="so-plate-key fill-block"></text>
+						</block>
+						<block v-if="inputType == 4">
+							<view hover-class="hover" class="so-plate-key" v-for="el of lastWordText" :key="el" :data-value="el" @tap="chooseKey">{{ el }}</view>
+						</block>
+							<text v-if="inputType == 4" class="so-plate-key fill-block"></text>
 					</view>
 				</view>
 				<view class="so-plate-btn-group">
@@ -117,7 +127,8 @@ export default {
 				'陕',
 				'甘',
 				'青',
-				'宁'
+				'宁',
+				'新'
 			],
 			numberText: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
 			wordText: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
